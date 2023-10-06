@@ -1,21 +1,38 @@
 // [Template no Kotlin Playground](https://pl.kotl.in/WcteahpyN)
 
-enum class Nivel { BASICO, INTERMEDIARIO, DIFICIL }
+enum class Nivel { BASICO, INTERMEDIARIO, AVANCADO }
 
-class Usuario
+class Usuario(val nome: String, val matricula: Int)
 
-data class ConteudoEducacional(var nome: String, val duracao: Int = 60)
+data class ConteudoEducacional(val nome: String, val duracao: Int = 60)
 
-data class Formacao(val nome: String, var conteudos: List<ConteudoEducacional>) {
+data class Formacao(val nome: String, val nivel: Nivel, var conteudos: List<ConteudoEducacional>) {
 
     val inscritos = mutableListOf<Usuario>()
     
-    fun matricular(usuario: Usuario) {
-        TODO("Utilize o parâmetro $usuario para simular uma matrícula (usar a lista de $inscritos).")
+    infix fun matricular(usuario: Usuario) {
+        
+        inscritos.add(usuario)
+        
+        println("Usuário ${usuario.nome} matriculado com sucesso!")
     }
 }
 
 fun main() {
-    TODO("Analise as classes modeladas para este domínio de aplicação e pense em formas de evoluí-las.")
-    TODO("Simule alguns cenários de teste. Para isso, crie alguns objetos usando as classes em questão.")
+    
+    var usuario = Usuario("Carla", 1)
+    val nivel = Nivel.INTERMEDIARIO
+    
+    val conteudo1 = ConteudoEducacional("Kotlin para Programadores Java", 13)
+    val conteudo2 = ConteudoEducacional("Padrões de projeto com Kotlin", 6)
+    val conteudo3 = ConteudoEducacional("Java e Spring Boot", 14)
+    val conteudo4 = ConteudoEducacional("Kotlin e Spring Boot", 9)
+    
+    val conteudos: List<ConteudoEducacional> = mutableListOf(conteudo1,
+                                                             conteudo2,
+                                                             conteudo3,
+                                                             conteudo4)
+    
+    var formacao = Formacao("Code Update TQI - Backend com Kotlin e Java", nivel, conteudos)
+    formacao.matricular(usuario)
 }
